@@ -1,4 +1,4 @@
-#include "Node.h"
+#include "../include/Node.h"
 #include <string>
 
 template <class T> Node<T>::Node(T data) {
@@ -29,4 +29,9 @@ template <class T> void Node<T>::setNext(Node<T> *next) {
 
 template <class T> void Node<T>::setPrev(Node<T> *prev) {
 	this->prev = prev;
+}
+
+
+int main(){
+	
 }

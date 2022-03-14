@@ -1,4 +1,4 @@
-#include "DoubleLinkedList.h"
+#include "../include/DoubleLinkedList.h"
 using namespace std;
 template <class T> DoubleLinkedList<T>::DoubleLinkedList() {
 	size = new int;
@@ -88,3 +88,7 @@ template <class T> string DoubleLinkedList<T>::to_str() {
 //std::string to_string(const Foo &e) {
 //
 //}
+
+int main(){
+	
+}
