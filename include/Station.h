@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include "./include/Rider.h"
+#include "./include/Train.h"
 #include "../include/Queue.h"
 
 using namespace std;
