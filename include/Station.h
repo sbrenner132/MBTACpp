@@ -1,9 +1,8 @@
 #include <iostream>
 #include <string>
-#include "./include/Rider.h"
-#include "./include/Train.h"
-#include "../include/Queue.h"
-#include "../include/Rider.h"
+#include "Rider.h"
+#include "Train.h"
+#include "Queue.h"
 
 using namespace std;
 
@@ -14,29 +13,30 @@ private:
     int *cap;
     Train boardTrain(Queue<Train> trainQ, Queue<Rider> riderQ)
     {
-        Train t = trainQ.front();
-        if (t != NULL)
+        Train* tp = trainQ.front();
+        if (tp != NULL)
         {
+            Train t = *tp;
             trainQ.dequeue();
             int size = riderQ.size();
             for (int i = 0; i < size; i++)
             {
-                Rider r = riderQ.front();
+                Rider r = *riderQ.front();
                 if (!t.addPassenger(r))
                 {
-                    riderQ.enqueue(riderQ.front());
+                    riderQ.enqueue(*riderQ.front());
                 }
                 riderQ.dequeue();
             }
         }
-        return t;
+        return *tp;
     }
 
 public:
-    Queue<Rider> northBoundRiders;
-    Queue<Rider> southBoundRiders;
-    Queue<Train> northBoundTrains;
-    Queue<Train> southBoundTrains;
+    Queue<Rider> northBoundRiders = Queue<Rider>(20);
+    Queue<Rider> southBoundRiders = Queue<Rider>(20);
+    Queue<Train> northBoundTrains = Queue<Train>(20);
+    Queue<Train> southBoundTrains = Queue<Train>(20);
     Station(string name)
     {
         this->name = name;
@@ -44,6 +44,7 @@ public:
         cap = new int;
         *cap = 20;
     }
+
     bool addRider(Rider r)
     {
         if (r.getStarting() == this->name)
@@ -88,8 +89,9 @@ public:
     }
 
     void moveTrainNorthToSouth() {
-        Train t = northBoundTrains.front();
-        if (t != NULL) {
+        Train* tp = northBoundTrains.front();
+        if (tp != NULL) {
+            Train t = *tp;
             northBoundTrains.dequeue();
             t.swapDirection();
             southBoundTrains.enqueue(t);
@@ -97,10 +99,11 @@ public:
     }
 
     void moveTrainSouthToNorth() {
-        Train t = southBoundTrains.front();
-        if (t != NULL) {
+        Train* tp = southBoundTrains.front();
+        if (tp != NULL) {
+            Train t = *tp;
             southBoundTrains.dequeue();
-            t.swapDirection();
+            (t).swapDirection();
             northBoundTrains.enqueue(t);
         }
     }

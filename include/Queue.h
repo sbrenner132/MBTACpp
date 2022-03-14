@@ -55,8 +55,8 @@ public:
         loopDec();
     }
 
-    T front(){
-        return *q[head];
+    T* front(){
+        return q[head];
     }
 
     int size(){

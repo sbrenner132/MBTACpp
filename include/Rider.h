@@ -20,6 +20,9 @@ public:
         northbound = false;
     }
 
+    Rider();
+    ~Rider();
+
     string getStarting(){
         return startingStation;
     }
@@ -44,8 +47,8 @@ public:
         return id + ", " + destinationStation;
     }
 
-    bool equals(T obj){
-        return (instanceof<Rider>(&obj)) && (obj.getRiderID() == id);
+    bool equals(Rider rider){
+        return rider.getRiderID() == id;
     }
 
 };

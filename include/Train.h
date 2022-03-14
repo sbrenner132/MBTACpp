@@ -1,6 +1,5 @@
 #include <iostream>
-#include "./include/Rider.h"
-#include "./include/Station.h"
+#include "Rider.h"
 using namespace std;
 
 class Train{
@@ -11,12 +10,20 @@ private:
     bool northbound;
 
 
-
+    void shiftToIndex(int index){
+        for (int i = index; i < passengerIndex; i++){
+            Rider* replacement = NULL;
+            if (i+1 < TOTAL_PASSENGERS){
+                replacement = passengers[i+1];
+            }           
+            passengers[i] = replacement;
+        }
+    }
 
 public:
 
     int TOTAL_PASSENGERS = 10;
-    Rider passengers [10];
+    Rider* passengers[10];
     int passengerIndex;
 
     Train(string currStation, int direction){
@@ -35,7 +42,7 @@ public:
     void swapDirection(){
         northbound = !northbound;
         for (int i = 0; i < passengerIndex; i++){
-            passengers[i].swapDirection();
+            (*passengers[i]).swapDirection();
         }
     }
 
@@ -43,7 +50,7 @@ public:
     string currentPassengers(){
         string s = "";
         for (int i = 0; i < passengerIndex; i++){
-            s = s + passengers[i].toString() + "\n";
+            s = s + (*passengers[i]).toString() + "\n";
         }
         return s;
     }
@@ -52,7 +59,7 @@ public:
         bool added = false;
         if (hasSpaceForPassengers() && r.getStarting() == currentStation && r.goingNorth() == goingNorth()){
             added = true;
-            passengers[passengerIndex++] = r;
+            passengers[passengerIndex++] = &r;
         }
         return added;
     }
@@ -64,8 +71,8 @@ public:
 
     string disembarkPassengers(){
         string s = "";
-        for (int = 0; i < passengerIndex; i++){
-            Rider r = passengers[i];
+        for (int i = 0; i < passengerIndex; i++){
+            Rider r = *passengers[i];
             if (r.getDestination() == currentStation){
                 s += r.toString() + "\n";
                 shiftToIndex(i);
@@ -77,11 +84,14 @@ public:
     }
 
 
-    void shiftToIndex(int index){
-        for (int i = index; i < passengerIndex; i++){
-            Rider replacement = NULL;
-            
-        }
+
+
+    void updateStation(string s){
+        currentStation = s;
+    }
+
+    string getStation(){
+        return currentStation;
     }
 
 };
