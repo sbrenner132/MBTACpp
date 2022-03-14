@@ -9,7 +9,7 @@ private:
     string id;
     string startingStation;
     string destinationStation;
-    bool goingNorth;
+    bool northbound;
 
 public:
 
@@ -17,7 +17,7 @@ public:
         id = riderID;
         startingStation = startStation;
         destinationStation = destStation;
-        goingNorth = false;
+        northbound = false;
     }
 
     string getStarting(){
@@ -33,11 +33,11 @@ public:
     }
 
     bool goingNorth(){
-        return goingNorth;
+        return northbound;
     }
 
     void swapDirection(){
-        goingNorth = !goingNorth;
+        northbound = !northbound;
     }
 
     string toString(){
