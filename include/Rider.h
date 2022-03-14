@@ -2,6 +2,7 @@
 #include <ClassUtils.h>
 using namespace std;
 
+template<typename T>
 class Rider{
 
 private:
@@ -42,6 +43,10 @@ public:
 
     string toString(){
         return id + ", " + destinationStation;
+    }
+
+    bool equals(T obj){
+        return (instanceof<Rider>(&obj)) && (obj.getRiderID() == id);
     }
 
 };
