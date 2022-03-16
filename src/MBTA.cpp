@@ -11,45 +11,37 @@ using namespace std;
 class MBTA{
     private:
 
-        static int parseInt(string num){
-            int n = 0;
-            int p = 10;
-            while (num.length() > 0){
-                int dig = num[num.length() - 1] - '0';
-                n += (int) (pow(10, p++) * dig);
-                num = num.substr(0,num.length()-1);
-            }
-            return n;
-        }
 
     public:
 
         const static int SOUTHBOUND = 1;
         const static int NORTHBOUND = 0;
-        const static int TIMES = 0;
+        const static int TIMES = 1;
         Railway r = Railway();
 
 
         MBTA(){
-            initStations("../redLine.txt");
-            initRiders("../riders.txt");
-            initTrains("../trains.txt");
+            initStations("./redLine.txt");
+            initRiders("./riders.txt");
+            initTrains("./trains.txt");
+            cout << r.to_str() << endl;
             runSimulation();
         }
 
         void runSimulation(){
             for (int i = 1; i <= TIMES; i++){
                 cout << "------- " << i << " -------" << endl;
-                cout << r.simulate() + "\n" << endl;
+                cout << r.simulate() << "\n" << endl;
             }
         }
 
 
         void initTrains(string trainsFile){
-            ifstream tfile(trainsFile);
+            ifstream tfile;
             string station;
             string dirstr;
             int dir;
+            tfile.open(trainsFile, ios::in);
             if (tfile.is_open()){
                 while (tfile){
                     getline(tfile, station);
@@ -62,27 +54,31 @@ class MBTA{
         }
 
         void initRiders(string ridersFile){
-            ifstream rfile(ridersFile);
-            string ID;
-            string starting;
-            string dest;
+            ifstream rfile;
+            string ID = "";
+            string starting = "";
+            string dest = "";
+            rfile.open(ridersFile, ios::in);
             if (rfile.is_open()){
-                while (rfile){
-                    getline(rfile, ID);
+                while (getline(rfile, ID)){
                     getline(rfile, starting);
                     getline(rfile, dest);
-                    r.addRider(Rider(ID, starting, dest));
+                    Rider newRider = Rider(ID, starting, dest);
+                    r.addRider(newRider);
                 }
             }
             rfile.close();
         }
 
         void initStations(string stationsFile){
-            ifstream sfile(stationsFile);
+            ifstream sfile;
+            sfile.open(stationsFile, ios::in);
             string station;
             if (sfile.is_open()){
-                while (sfile >> station){
+                while (getline(sfile, station)){
                     r.addStation(Station(station));
+                    cout << station << endl;
+
                 }
             }
             sfile.close();

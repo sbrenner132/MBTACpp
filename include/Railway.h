@@ -43,7 +43,8 @@ class Railway{
 
         void addStation(Station s){
             railway.insert(s);
-            stationNames[stationIndex++] = s.stationName();
+            stationIndex += 1;
+            stationNames[stationIndex] = s.stationName();
         }
 
         void addRider(Rider r){
@@ -107,7 +108,7 @@ class Railway{
 
 
 
-        string toString(){
+        string to_str(){
             return railway.to_str();
         }
 
