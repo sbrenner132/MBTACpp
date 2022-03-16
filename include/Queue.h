@@ -27,7 +27,6 @@ private:
 
 public:
 
-    ~Queue();
 
     Queue(int cap)
     {

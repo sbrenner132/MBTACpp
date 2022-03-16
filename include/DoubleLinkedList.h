@@ -10,19 +10,17 @@ template <class T>
 class DoubleLinkedList
 {
 private:
-	int *size;
+	int size;
 	Node<T> *head = nullptr;
 	Node<T> *tail = nullptr;
 
 public:
 	DoubleLinkedList()
 	{
-		size = new int;
-		*size = 0;
+		size = 0;
 	}
 	~DoubleLinkedList()
 	{
-		delete size;
 		delete head;
 	}
 	Node<T> *getFirst()
@@ -43,7 +41,7 @@ public:
 		}
 
 		this->tail = n;
-		*(this->size) += 1;
+		size += 1;
 	}
 	T deleteElement(T e)
 	{
@@ -70,7 +68,7 @@ public:
 						curr->getNext()->setPrev(curr->getPrev());
 					}
 					delete old;
-					*(this->size) -= 1;
+					size -= 1;
 					return curr->getData();
 				}
 				curr = curr->getNext();
@@ -84,8 +82,10 @@ public:
 		while (curr != nullptr)
 		{
 			if (curr->getData() == e)
-			{
-				return curr->getData();
+			{	
+				T currData = curr->getData();
+				T* dtPtr = &currData;
+				return dtPtr;
 			}
 			curr = curr->getNext();
 		}
@@ -93,7 +93,7 @@ public:
 	}
 	int length()
 	{
-		return *(this->size);
+		return size;
 	}
 	std::string to_str()
 	{
@@ -101,7 +101,7 @@ public:
 		string dll("[");
 		while (curr != NULL)
 		{
-			dll += to_string(curr->getData());
+			dll += (curr->getData()).to_str();
 			if (curr != this->tail)
 			{
 				dll += ", ";
@@ -112,7 +112,7 @@ public:
 	}
 
 	// passing e by ref
-	std::string to_string(Station &e) {
+	std::string to_string(Station e) {
 		return e.to_str();
 	}
 };

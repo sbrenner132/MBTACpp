@@ -27,16 +27,14 @@ class MBTA{
         const static int SOUTHBOUND = 1;
         const static int NORTHBOUND = 0;
         const static int TIMES = 0;
-        static Railway r;
+        Railway r = Railway();
 
 
-        int main(){
-            r = Railway();
+        MBTA(){
             initStations("../redLine.txt");
             initRiders("../riders.txt");
             initTrains("../trains.txt");
             runSimulation();
-            return 0;
         }
 
         void runSimulation(){
@@ -47,7 +45,7 @@ class MBTA{
         }
 
 
-        static void initTrains(string trainsFile){
+        void initTrains(string trainsFile){
             ifstream tfile(trainsFile);
             string station;
             string dirstr;
@@ -63,7 +61,7 @@ class MBTA{
             tfile.close();
         }
 
-        static void initRiders(string ridersFile){
+        void initRiders(string ridersFile){
             ifstream rfile(ridersFile);
             string ID;
             string starting;
@@ -79,7 +77,7 @@ class MBTA{
             rfile.close();
         }
 
-        static void initStations(string stationsFile){
+        void initStations(string stationsFile){
             ifstream sfile(stationsFile);
             string station;
             if (sfile.is_open()){
@@ -90,3 +88,9 @@ class MBTA{
             sfile.close();
         }
 };
+
+
+
+int main(){
+    MBTA mb = MBTA();
+}

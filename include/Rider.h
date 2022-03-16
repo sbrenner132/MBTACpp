@@ -20,8 +20,8 @@ public:
         northbound = false;
     }
 
-    Rider();
-    ~Rider();
+    Rider() {
+    }
 
     string getStarting(){
         return startingStation;
