@@ -22,8 +22,8 @@ private:
 
 public:
 
-    int TOTAL_PASSENGERS = 10;
-    Rider* passengers[10];
+    static const int TOTAL_PASSENGERS = 10;
+    Rider* passengers[TOTAL_PASSENGERS];
     int passengerIndex;
 
     Train(string currStation, int direction){
@@ -65,7 +65,7 @@ public:
     }
 
     bool hasSpaceForPassengers(){
-        return passengerIndex < 10;
+        return passengerIndex < TOTAL_PASSENGERS;
     }
 
 
@@ -83,15 +83,22 @@ public:
         return s;
     }
 
-
-
-
     void updateStation(string s){
         currentStation = s;
     }
 
     string getStation(){
         return currentStation;
+    }
+
+    string to_str(){
+        string boundTo = northbound? "Northbound" : "Southbound";
+        return "Direction: " 
+            + boundTo
+            + "\nPassengers:\n"
+			+ currentPassengers() 
+            + "Current Station: " 
+            + getStation();
     }
 
 };

@@ -83,7 +83,7 @@ public:
         return boardTrain(southBoundTrains, southBoundRiders);
     }
 
-    Train northBoardRiders()
+    Train northBoardTrain()
     {
         return boardTrain(northBoundTrains, northBoundRiders);
     }
@@ -112,7 +112,7 @@ public:
         return this->name;
     }
 
-    string toString() {
+    string to_str() {
         return "\nStation: " + this->name + "\n" + std::to_string(this->northBoundTrains.size())
 				+ " north-bound trains waiting\n" + std::to_string(this->southBoundTrains.size())
 				+ " south-bound trains waiting\n" + std::to_string(this->northBoundRiders.size())
