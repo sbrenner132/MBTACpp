@@ -24,6 +24,7 @@ public:
     }
 
     string getStarting(){
+        cout << "getStarting" << endl;
         return startingStation;
     }
 

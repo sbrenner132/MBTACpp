@@ -10,106 +10,104 @@ template <class T>
 class DoubleLinkedList
 {
 private:
+
 	int size;
 	Node<T> *head = nullptr;
 	Node<T> *tail = nullptr;
 
 public:
-	DoubleLinkedList()
-	{
+
+	DoubleLinkedList(){
 		size = 0;
 	}
-	~DoubleLinkedList()
-	{
+
+
+	~DoubleLinkedList(){
 		delete head;
+		delete tail;
 	}
-	Node<T> *getFirst()
-	{
+
+
+	Node<T>* getFirst(){
 		return head;
 	}
-	void insert(T e)
-	{
-		Node<T> *n = new Node<T>(e);
-		if (length() == 0)
-		{
-			this->head = n;
-		}
-		else
-		{
-			this->tail->setNext(n);
-			n->setPrev(this->tail);
+
+
+	void insert(T e){
+		Node<T> n = Node<T>(e);
+
+		if (size == 0){
+			head = &n;
+		}else{
+			tail->setNext(&n);
+			n.setPrev(tail);
 		}
 
-		this->tail = n;
+		tail = &n;
 		size += 1;
 	}
-	T deleteElement(T e)
-	{
-		if (e == this->head->getData())
-		{
-			T obj = this->head->getData();
-			Node<T> *old = this->head;
-			this->head = this->head->getNext();
-			this->size--;
-			delete old;
-			return obj;
-		}
-		else
-		{
-			Node<T> *curr = this->head;
-			while (curr != nullptr)
-			{
-				if (curr->getData() == e)
-				{
-					Node<T> *old = curr;
-					curr->getPrev()->setNext(curr->getNext());
-					if (curr->getNext() != NULL)
-					{
-						curr->getNext()->setPrev(curr->getPrev());
-					}
-					delete old;
-					size -= 1;
-					return curr->getData();
-				}
-				curr = curr->getNext();
+
+
+	T deleteElement(T e){
+		if (head->getData() == e){
+			if (head.getNext == nullptr){
+				head = nullptr;
+				return e;
+			}else{
+				head = head->getNext();
+				head->setPrev(nullptr);
+				return e;
 			}
-			return NULL;
+		}else if (tail->getData() == e){
+			tail = tail->getPrev();
+			tail->setNext(nullptr);
+		}else{
+			Node<T>* currptr = head->getNext();
+			while (currptr != nullptr){
+				if (currptr->getData() == e){
+					currptr->setNext(currptr->getPrev());
+					currptr->setPrev(currptr->getNext());
+					return e;
+				}
+				currptr = currptr->getNext();
+			}
 		}
 	}
-	T* get(T e)
-	{
-		Node<T> *curr = this->head;
-		while (curr != nullptr)
-		{
-			if (curr->getData() == e)
-			{	
-				T currData = curr->getData();
-				T* dtPtr = &currData;
-				return dtPtr;
+
+
+	T* get(T e, T* globaddr){
+		Node<T>* curr = head;
+		while (curr != nullptr){
+			if (curr->getData() == e){	
+				T dt = curr->getData();
+				globaddr = &dt;
+				break;
 			}
 			curr = curr->getNext();
 		}
-		return nullptr;
+		cout << "get" << endl;
+		return globaddr;
 	}
-	int length()
-	{
+
+
+	int length(){
 		return size;
 	}
-	std::string to_str()
-	{
+
+
+	std::string to_str(){
 		Node<T> *curr = this->head;
 		string dll("[");
-		while (curr != NULL)
-		{
+		while (curr != NULL){
 			dll += (curr->getData()).to_str();
-			if (curr != this->tail)
-			{
+			if (curr != this->tail){
 				dll += ", ";
 			}
 			curr = curr->getNext();
 		}
 		return dll + "]";
 	}
+
 
 	// passing e by ref
 	std::string to_string(Station e) {

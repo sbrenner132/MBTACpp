@@ -47,8 +47,8 @@ public:
     }
 
     bool addRider(Rider r)
-    {
-        if (r.getStarting() == this->name)
+    {   
+        if (r.getStarting() == name)
         {
             if (r.goingNorth())
             {
@@ -56,6 +56,7 @@ public:
             }
             else
             {
+                
                 southBoundRiders.enqueue(r);
             }
             return true;

@@ -24,7 +24,8 @@ class Railway{
 
         string getUpdateMsg(string nextStation, Train t){
             string out = "";
-            out += railway.get(Station(nextStation))->addTrain(t);
+            Station* addr;
+            out += railway.get(Station(nextStation), addr)->addTrain(t);
             out += t.to_str();
             return out + "\n\n";
             
@@ -49,7 +50,10 @@ class Railway{
 
         void addRider(Rider r){
             setRiderDirection(r);
-            railway.get(Station(r.getStarting()))->addRider(r);
+            cout << "addRider" << endl;
+            Station* addr;
+            railway.get(Station(r.getStarting()), addr)->addRider(r);
+            
         }
 
         void setRiderDirection(Rider r){
@@ -60,7 +64,8 @@ class Railway{
         }
 
         void addTrain(Train t){
-            railway.get(Station(t.getStation()))->addTrain(t);
+            Station* addr;
+            railway.get(Station(t.getStation()), addr)->addTrain(t);
         }
 
 
@@ -68,34 +73,35 @@ class Railway{
             string out = "\n";
 
             for (int i = 0; i < stationIndex; i++){
-                Station* s = railway.get(Station(stationNames[i]));
-                out += s->to_str() + "\n\n";
+                Station* addr;
+                Station s = *(railway.get(Station(stationNames[i]), addr));
+                out += s.to_str() + "\n\n";
                 if (i == 0){
-                    Train* tp = s->southBoardTrain();
+                    Train* tp = s.southBoardTrain();
                     if (tp != NULL){
                         string next = stationNames[i-1];
                         ((Train)*tp).updateStation(next);
                         out += getUpdateMsg(next, *tp);
                     }
-                    s->moveTrainNorthToSouth();
+                    s.moveTrainNorthToSouth();
                 }  else if (i == stationIndex - 1) {
-                    Train* tp = s->northBoardTrain();
+                    Train* tp = s.northBoardTrain();
                     if (tp != NULL){
                         string next = stationNames[i-1];
                         ((Train)*tp).updateStation(next);
                         out += getUpdateMsg(next, *tp);
                     }
 
-                    s->moveTrainSouthToNorth();
+                    s.moveTrainSouthToNorth();
                 } else {
                     string next = "";
-                    Train* tp = s->southBoardTrain();
+                    Train* tp = s.southBoardTrain();
                     if (tp != NULL) {
                         next = stationNames[i + 1];
                         ((Train) *tp).updateStation(next);
                         out += getUpdateMsg(next, *tp);
                     }
-                    Train* tp2 = s->northBoardTrain();
+                    Train* tp2 = s.northBoardTrain();
                     if (tp != NULL) {
                         next = stationNames[i - 1];
                         ((Train) *tp).updateStation(next);

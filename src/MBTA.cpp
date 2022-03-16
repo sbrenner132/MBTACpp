@@ -21,10 +21,12 @@ class MBTA{
 
 
         MBTA(){
-            initStations("./redLine.txt");
-            initRiders("./riders.txt");
-            initTrains("./trains.txt");
-            cout << r.to_str() << endl;
+            initStations("redLine.txt");
+            cout << "Stations initialized" << endl;
+            initRiders("riders.txt");
+            cout << "Riders initialized" << endl;
+            initTrains("trains.txt");
+            cout << "Trains initialized" << endl;
             runSimulation();
         }
 
@@ -47,6 +49,7 @@ class MBTA{
                     getline(tfile, station);
                     getline(tfile, dirstr);
                     dir = stoi(dirstr);
+                    cout << "Station: " << station << " Direction: " << dir << endl;
                     r.addTrain(Train(station, dir));
                 }
             }
@@ -55,16 +58,16 @@ class MBTA{
 
         void initRiders(string ridersFile){
             ifstream rfile;
-            string ID = "";
-            string starting = "";
-            string dest = "";
+            string ID;
+            string starting;
+            string dest;
             rfile.open(ridersFile, ios::in);
             if (rfile.is_open()){
-                while (getline(rfile, ID)){
+                while (rfile.peek() != EOF){
+                    getline(rfile, ID);
                     getline(rfile, starting);
                     getline(rfile, dest);
-                    Rider newRider = Rider(ID, starting, dest);
-                    r.addRider(newRider);
+                    r.addRider(Rider(ID, starting, dest));
                 }
             }
             rfile.close();
@@ -72,10 +75,11 @@ class MBTA{
 
         void initStations(string stationsFile){
             ifstream sfile;
-            sfile.open(stationsFile, ios::in);
             string station;
+            sfile.open(stationsFile, ios::in);
             if (sfile.is_open()){
-                while (getline(sfile, station)){
+                while (sfile.peek() != EOF){
+                    getline(sfile, station);
                     r.addStation(Station(station));
                     cout << station << endl;
 
@@ -88,5 +92,7 @@ class MBTA{
 
 
 int main(){
+    cout << "MBTA Simulation" << endl;
     MBTA mb = MBTA();
+    cout << "Simulation Complete" << endl;
 }
