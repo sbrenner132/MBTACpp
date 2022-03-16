@@ -2,6 +2,7 @@
 #include "Node.h"
 #include <iostream>
 #include <string>
+#include "Station.h"
 
 using namespace std;
 
@@ -111,7 +112,7 @@ public:
 	}
 
 	// passing e by ref
-	// std::string to_string(const Foo &e) {
-	//
-	// }
+	std::string to_string(Station &e) {
+		return e.to_str();
+	}
 };

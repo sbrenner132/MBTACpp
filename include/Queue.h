@@ -7,7 +7,7 @@ class Queue
 {
 private:
 
-    T* q;
+    T *q;
     int head;
     int tail;
     int numEntries;
@@ -36,7 +36,7 @@ public:
             throw length_error("Queue cannot have negative capacity");
         };
         capacity = cap;
-        this->q = new T[capacity]();
+        q = new T[capacity];
         numEntries = head = tail = 0;
     }
 
@@ -44,7 +44,7 @@ public:
         if (head == tail && numEntries > 0){
             throw overflow_error("Queue full");
         }
-        q[tail] = &element;
+        q[tail] = element;
         loopInc();
     }
 
@@ -57,7 +57,7 @@ public:
     }
 
     T* front(){
-        return q[head];
+        return &q[head];
     }
 
     int size(){
