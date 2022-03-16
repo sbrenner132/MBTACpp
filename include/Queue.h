@@ -7,7 +7,7 @@ class Queue
 {
 private:
 
-    T* q[capacity];
+    T* q;
     int head;
     int tail;
     int numEntries;
@@ -36,6 +36,7 @@ public:
             throw length_error("Queue cannot have negative capacity");
         };
         capacity = cap;
+        this->q = new T[capacity]();
         numEntries = head = tail = 0;
     }
 

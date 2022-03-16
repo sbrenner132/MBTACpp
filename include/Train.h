@@ -34,6 +34,8 @@ public:
         currentStation = currStation;
         northbound = direction == 0;
     }
+    Train();
+    ~Train();
 
 
     bool goingNorth(){

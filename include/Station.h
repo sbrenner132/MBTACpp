@@ -12,7 +12,7 @@ class Station
 private:
     string name;
     int *cap;
-    const Train* boardTrain(Queue<Train> trainQ, Queue<Rider> riderQ)
+    Train* boardTrain(Queue<Train> trainQ, Queue<Rider> riderQ)
     {
         Train* tp = trainQ.front();
         if (tp != NULL)
@@ -79,12 +79,12 @@ public:
         }
         return disem;
     }
-    const Train* southBoardTrain()
+    Train* southBoardTrain()
     {
         return boardTrain(southBoundTrains, southBoundRiders);
     }
 
-    const Train* northBoardTrain()
+    Train* northBoardTrain()
     {
         return boardTrain(northBoundTrains, northBoundRiders);
     }

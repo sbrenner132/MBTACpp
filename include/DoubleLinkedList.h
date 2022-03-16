@@ -77,7 +77,7 @@ public:
 			return NULL;
 		}
 	}
-	T get(T e)
+	T* get(T e)
 	{
 		Node<T> *curr = this->head;
 		while (curr != nullptr)
@@ -88,7 +88,7 @@ public:
 			}
 			curr = curr->getNext();
 		}
-		return NULL;
+		return nullptr;
 	}
 	int length()
 	{
