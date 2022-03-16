@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 using namespace std;
 
@@ -6,7 +7,7 @@ class Queue
 {
 private:
 
-    T* q;
+    T* q[capacity];
     int head;
     int tail;
     int numEntries;
@@ -35,7 +36,6 @@ public:
             throw length_error("Queue cannot have negative capacity");
         };
         capacity = cap;
-        this->q = new T[capacity];
         numEntries = head = tail = 0;
     }
 

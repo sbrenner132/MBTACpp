@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include "Rider.h"
@@ -11,7 +12,7 @@ class Station
 private:
     string name;
     int *cap;
-    Train boardTrain(Queue<Train> trainQ, Queue<Rider> riderQ)
+    const Train* boardTrain(Queue<Train> trainQ, Queue<Rider> riderQ)
     {
         Train* tp = trainQ.front();
         if (tp != NULL)
@@ -29,7 +30,7 @@ private:
                 riderQ.dequeue();
             }
         }
-        return *tp;
+        return tp;
     }
 
 public:
@@ -78,12 +79,12 @@ public:
         }
         return disem;
     }
-    Train southBoardTrain()
+    const Train* southBoardTrain()
     {
         return boardTrain(southBoundTrains, southBoundRiders);
     }
 
-    Train northBoardTrain()
+    const Train* northBoardTrain()
     {
         return boardTrain(northBoundTrains, northBoundRiders);
     }

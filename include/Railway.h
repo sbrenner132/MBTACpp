@@ -1,7 +1,8 @@
-#include <DoubleLinkedList.h>
-#include <Train.h>
-#include <Rider.h>
-#include <Station.h>
+#include "DoubleLinkedList.h"
+#include "Train.h"
+#include "Rider.h"
+#pragma once
+#include "Station.h"
 #include <iostream>
 
 using namespace std;
@@ -69,36 +70,35 @@ class Railway{
                 Station s = railway.get(Station(stationNames[i]));
                 out += s.to_str() + "\n\n";
                 if (i == 0){
-                    Train t = s.southBoardTrain();
-                    if (&t != NULL){
+                    const Train* tp = s.southBoardTrain();
+                    if (tp != NULL){
                         string next = stationNames[i-1];
-                        t.updateStation(next);
-                        out += getUpdateMsg(next, t);
+                        ((Train)*tp).updateStation(next);
+                        out += getUpdateMsg(next, *tp);
                     }
                     s.moveTrainNorthToSouth();
                 }  else if (i == stationIndex - 1) {
-                    Train t = s.northBoardTrain();
-                    if (&t != NULL) {
-                        string next = stationNames[i - 1];
-                        t.updateStation(next);
-                        out += getUpdateMsg(next, t);
+                    const Train* tp = s.northBoardTrain();
+                    if (tp != NULL){
+                        string next = stationNames[i-1];
+                        ((Train)*tp).updateStation(next);
+                        out += getUpdateMsg(next, *tp);
                     }
 
                     s.moveTrainSouthToNorth();
                 } else {
-                    Train *t = NULL;
                     string next = "";
-                    t = &s.southBoardTrain();
-                    if (t != NULL) {
+                    const Train* tp = s.southBoardTrain();
+                    if (tp != NULL) {
                         next = stationNames[i + 1];
-                        (*t).updateStation(next);
-                        out += getUpdateMsg(next, *t);
+                        ((Train) *tp).updateStation(next);
+                        out += getUpdateMsg(next, *tp);
                     }
-                    t = &s.northBoardTrain();
-                    if (t != NULL) {
+                    const Train* tp2 = s.northBoardTrain();
+                    if (tp != NULL) {
                         next = stationNames[i - 1];
-                        (*t).updateStation(next);
-                        out += getUpdateMsg(next, *t);
+                        ((Train) *tp).updateStation(next);
+                        out += getUpdateMsg(next, *tp2);
                     }
                 }
             }

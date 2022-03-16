@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include "Rider.h"
 using namespace std;
@@ -27,7 +28,7 @@ public:
     int passengerIndex;
 
     Train(string currStation, int direction){
-        if (&currentStation == nullptr || direction > 1 || direction < 0){
+        if (&currStation == nullptr || direction > 1 || direction < 0){
             __throw_invalid_argument("");
         }
         currentStation = currStation;

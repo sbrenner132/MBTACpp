@@ -1,5 +1,5 @@
+#pragma once
 #include <iostream>
-#include <ClassUtils.h>
 using namespace std;
 
 class Rider{
