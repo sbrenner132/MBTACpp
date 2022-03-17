@@ -24,7 +24,6 @@ public:
 
 	~DoubleLinkedList(){
 		delete head;
-		delete tail;
 	}
 
 
@@ -34,16 +33,16 @@ public:
 
 
 	void insert(T e){
-		Node<T> n = Node<T>(e);
+		Node<T> *n = new Node<T>(e);
 
 		if (size == 0){
-			head = &n;
+			head = n;
 		}else{
-			tail->setNext(&n);
-			n.setPrev(tail);
+			tail->setNext(n);
+			n->setPrev(tail);
 		}
 
-		tail = &n;
+		tail = n;
 		size += 1;
 	}
 
@@ -75,18 +74,17 @@ public:
 	}
 
 
-	T* get(T e, T* globaddr){
+	T get(const T &e){
 		Node<T>* curr = head;
 		while (curr != nullptr){
 			if (curr->getData() == e){	
 				T dt = curr->getData();
-				globaddr = &dt;
-				break;
+				return dt;
 			}
 			curr = curr->getNext();
 		}
 		cout << "get" << endl;
-		return globaddr;
+		return T();
 	}
 
 
@@ -96,10 +94,14 @@ public:
 
 
 	std::string to_str(){
+		cout << "to_str" << endl;
 		Node<T> *curr = this->head;
 		string dll("[");
 		while (curr != NULL){
-			dll += (curr->getData()).to_str();
+			cout << curr << endl;
+			T dt = curr->getData();
+			cout << (&dt == nullptr) << endl;
+			dll += dt.to_str();
 			if (curr != this->tail){
 				dll += ", ";
 			}

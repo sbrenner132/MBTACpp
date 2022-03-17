@@ -27,7 +27,7 @@ private:
 
 public:
 
-
+    Queue();
     Queue(int cap)
     {
         if (cap < 0)
@@ -37,6 +37,19 @@ public:
         capacity = cap;
         q = new T[capacity];
         numEntries = head = tail = 0;
+    }
+
+    Queue(const Queue &q)
+    {
+        this->capacity = q.capacity;
+        this->numEntries = q.numEntries;
+        this->head = q.head;
+        this->tail = q.tail;
+        this->q = new T[capacity];
+        for (int i = 0; i < numEntries; i++)
+        {
+            this->q[i] = q.q[i];
+        }
     }
 
     void enqueue(T element){

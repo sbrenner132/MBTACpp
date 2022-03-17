@@ -24,8 +24,8 @@ class Railway{
 
         string getUpdateMsg(string nextStation, Train t){
             string out = "";
-            Station* addr;
-            out += railway.get(Station(nextStation), addr)->addTrain(t);
+            Station s = Station(nextStation);
+            out += railway.get(s).addTrain(t);
             out += t.to_str();
             return out + "\n\n";
             
@@ -51,8 +51,8 @@ class Railway{
         void addRider(Rider r){
             setRiderDirection(r);
             cout << "addRider" << endl;
-            Station* addr;
-            railway.get(Station(r.getStarting()), addr)->addRider(r);
+            Station s = Station(r.getStarting());
+            railway.get(s).addRider(r);
             
         }
 
@@ -64,8 +64,8 @@ class Railway{
         }
 
         void addTrain(Train t){
-            Station* addr;
-            railway.get(Station(t.getStation()), addr)->addTrain(t);
+            Station s = Station(t.getStation());
+            railway.get(s).addTrain(t);
         }
 
 
@@ -73,8 +73,8 @@ class Railway{
             string out = "\n";
 
             for (int i = 0; i < stationIndex; i++){
-                Station* addr;
-                Station s = *(railway.get(Station(stationNames[i]), addr));
+                Station s1 = Station(stationNames[i]);
+                Station s = railway.get(s1);
                 out += s.to_str() + "\n\n";
                 if (i == 0){
                     Train* tp = s.southBoardTrain();

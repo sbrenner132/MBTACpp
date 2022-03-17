@@ -3,20 +3,20 @@ template <class T>
 class Node
 {
 private:
-	T* data;
+	T data;
 	Node<T> *next;
 	Node<T> *prev;
 
 public:
 	Node(T dt)
 	{
-		data = &dt;
+		data = dt;
 		setNext(nullptr);
 		setPrev(nullptr);
 	}
 	T getData()
 	{
-		return *data;
+		return data;
 	}
 	Node<T> *getNext()
 	{
@@ -28,7 +28,7 @@ public:
 	}
 	void setData(T dt)
 	{
-		data = *dt;
+		data = dt;
 	}
 	void setNext(Node<T> *next)
 	{

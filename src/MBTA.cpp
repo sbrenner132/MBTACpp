@@ -23,6 +23,8 @@ class MBTA{
         MBTA(){
             initStations("redLine.txt");
             cout << "Stations initialized" << endl;
+            cout << r.railway.length() << endl;
+            cout << r.railway.to_str() << endl;
             initRiders("riders.txt");
             cout << "Riders initialized" << endl;
             initTrains("trains.txt");
@@ -80,7 +82,8 @@ class MBTA{
             if (sfile.is_open()){
                 while (sfile.peek() != EOF){
                     getline(sfile, station);
-                    r.addStation(Station(station));
+                    Station s(station);
+                    r.addStation(s);
                     cout << station << endl;
 
                 }

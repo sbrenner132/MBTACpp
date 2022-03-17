@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <memory>
 #include <string>
 #include "Rider.h"
 #include "Train.h"
@@ -11,7 +12,7 @@ class Station
 {
 private:
     string name;
-    int *cap;
+    shared_ptr<int> cap;
     Train* boardTrain(Queue<Train> trainQ, Queue<Rider> riderQ)
     {
         Train* tp = trainQ.front();
@@ -38,12 +39,19 @@ public:
     Queue<Rider> southBoundRiders = Queue<Rider>(20);
     Queue<Train> northBoundTrains = Queue<Train>(20);
     Queue<Train> southBoundTrains = Queue<Train>(20);
+    Station() {}
     Station(string name)
     {
         this->name = name;
 
-        cap = new int;
-        *cap = 20;
+        cap = shared_ptr<int>(new int(20));
+    }
+    
+    // copy constructor
+    Station(const Station &s)
+    {
+        this->name = s.name;
+        this->cap = s.cap;
     }
 
     bool addRider(Rider r)
@@ -124,5 +132,12 @@ public:
 
     bool operator==(const Station& s) {
         return this->name == s.name;
+    }
+
+    // can either have this or copy constructor or both
+    Station& operator=(const Station& s) {
+        this->name = s.name;
+        this->cap = s.cap;
+        return *this;
     }
 };
